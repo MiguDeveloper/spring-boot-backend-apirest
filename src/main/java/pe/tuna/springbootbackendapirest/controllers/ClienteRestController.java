@@ -21,7 +21,7 @@ public class ClienteRestController {
         return clienteService.findAll();
     }
 
-    @GetMapping("/cliente/{id}")
+    @GetMapping("/clientes/{id}")
     public Cliente showCliente(@PathVariable(name = "id") Long id){
         return clienteService.findById(id);
     }
@@ -30,5 +30,22 @@ public class ClienteRestController {
     @ResponseStatus(HttpStatus.CREATED)
     public Cliente create(@RequestBody Cliente cliente){
         return clienteService.save(cliente);
+    }
+
+    @PutMapping("/clientes/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Cliente updateCliente(@RequestBody Cliente cliente, @PathVariable Long id){
+        Cliente clienteCurrent = clienteService.findById(id);
+        clienteCurrent.setNombre(cliente.getNombre());
+        clienteCurrent.setApellido(cliente.getApellido());
+        clienteCurrent.setEmail(cliente.getEmail());
+
+        return clienteService.save(clienteCurrent);
+    }
+
+    @DeleteMapping("/clientes/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id){
+        clienteService.delete(id);
     }
 }

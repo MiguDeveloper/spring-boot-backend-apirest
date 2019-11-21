@@ -12,8 +12,12 @@ public class Cliente implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String nombre;
     private String apellido;
+
+    @Column(nullable = false, unique = true)
+    private String email;
 
     @Column(name = "create_at")
     @Temporal(TemporalType.DATE)
@@ -23,8 +27,6 @@ public class Cliente implements Serializable {
     public void prePersist(){
         createAt = new Date();
     }
-
-    private String email;
 
     public Long getId() {
         return id;

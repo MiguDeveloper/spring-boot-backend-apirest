@@ -1,6 +1,9 @@
 package pe.tuna.springbootbackendapirest.models.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -13,9 +16,15 @@ public class Cliente implements Serializable {
     private Long id;
 
     @Column(nullable = false)
+    @NotEmpty(message = "No puede estar vacio")
+    @Size(min = 4, max = 12, message = "El tamaño tiene que estar entre 4 y 12 caracteres")
     private String nombre;
+
+    @NotEmpty
     private String apellido;
 
+    @NotEmpty(message = "No puede estar vacio")
+    @Email(message = "No es una direccion de correo bien formada")
     @Column(nullable = false, unique = true)
     private String email;
 
